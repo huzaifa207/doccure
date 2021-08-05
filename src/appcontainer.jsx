@@ -1,9 +1,9 @@
 import React from "react";
-import config from 'config';
+import config from "config";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Header from "./client/components/header.jsx";
 import Footer from "./client/components/footer.jsx";
-import TopHeader from  './client/components/topheader.jsx';
+import TopHeader from "./client/components/topheader.jsx";
 import LoginContainer from "./client/components/login/login.jsx";
 import Register from "./client/components/register/register.jsx";
 import ForgotPassword from "./client/components/forgot-password";
@@ -60,11 +60,14 @@ import ProductDescription from "./client/components/Pharmacy/productdescription"
 import ProductCheckout from "./client/components/Pharmacy/productcheckout";
 import PayoutSuccess from "./client/components/Pharmacy/payoutsuccess";
 
-
 import AppUniversal from "./admin/app-universal";
 import PharmacyadminApp from "./pharmacyadmin/app-universal";
 
+import DoctorRepository from "./repositories/DoctorRepository";
+
 const AppContainer = function (props) {
+  console.log("checking");
+  DoctorRepository.getDoctors();
   if (props) {
     const url = props.location.pathname.split("/")[1];
 
@@ -76,17 +79,17 @@ const AppContainer = function (props) {
               <Route path="/admin" component={AppUniversal} />
             </Switch>
           </div>
-        ) : 
-        url === "pharmacyadmin" ? (
+        ) : url === "pharmacyadmin" ? (
           <div>
             <Switch>
               <Route path="/pharmacyadmin" exact component={PharmacyadminApp} />
             </Switch>
           </div>
-        ) :
-        (
+        ) : (
           <div>
-            { url === "homeslider1" && <Route render={(props)=> <TopHeader {...props}/>} />}
+            {url === "homeslider1" && (
+              <Route render={(props) => <TopHeader {...props} />} />
+            )}
             <Route render={(props) => <Header {...props} />} />
             <Switch>
               <Route path="/patient/doctor-grid" exact component={DoctorGrid} />
@@ -98,10 +101,10 @@ const AppContainer = function (props) {
               <Route path="/login" exact component={LoginContainer} />
               <Route path="/register" exact component={Register} />
               <Route path="/forgot-password" exact component={ForgotPassword} />
-              <Route path="(/|/home)" exact component={Home} />	
-              <Route path="/home1" exact component={Home1} />	
-              <Route path="/home2" exact component={Home2} />	
-              <Route path="/homeslider1" exact component={HomeSlider1} />	
+              <Route path="(/|/home)" exact component={Home} />
+              <Route path="/home1" exact component={Home1} />
+              <Route path="/home2" exact component={Home2} />
+              <Route path="/homeslider1" exact component={HomeSlider1} />
               <Route path="/homeslider2" exact component={HomeSlider2} />
 
               {/* blog */}
@@ -191,15 +194,39 @@ const AppContainer = function (props) {
               />
               <Route path="/terms" exact component={Terms} />
               <Route path="/privacy-policy" exact component={Policy} />
-              {/* Pharmacy */}              
-              <Route path="/Pharmacy/Pharmacy-index" exact component={Pharmacy} />
-              <Route path="/Pharmacy/Pharmacy-details" exact component={pharmacydetail} />
-              <Route path="/Pharmacy/pharmacy-search" exact component={PharmacySearch} />
+              {/* Pharmacy */}
+              <Route
+                path="/Pharmacy/Pharmacy-index"
+                exact
+                component={Pharmacy}
+              />
+              <Route
+                path="/Pharmacy/Pharmacy-details"
+                exact
+                component={pharmacydetail}
+              />
+              <Route
+                path="/Pharmacy/pharmacy-search"
+                exact
+                component={PharmacySearch}
+              />
               <Route path="/Pharmacy/product-all" exact component={Product} />
-              <Route path="/Pharmacy/product-description" exact component={ProductDescription} />
+              <Route
+                path="/Pharmacy/product-description"
+                exact
+                component={ProductDescription}
+              />
               <Route path="/Pharmacy/cart" exact component={Cart} />
-              <Route path="/Pharmacy/product-checkout" exact component={ProductCheckout} />
-              <Route path="/Pharmacy/payment-success" exact component={PayoutSuccess} />
+              <Route
+                path="/Pharmacy/product-checkout"
+                exact
+                component={ProductCheckout}
+              />
+              <Route
+                path="/Pharmacy/payment-success"
+                exact
+                component={PayoutSuccess}
+              />
             </Switch>
             <Route render={(props) => <Footer {...props} />} />
           </div>
